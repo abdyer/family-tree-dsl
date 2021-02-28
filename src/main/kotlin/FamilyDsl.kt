@@ -9,8 +9,8 @@ fun partnership(
 }
 
 data class Partnership(
-        val person1: Person,
-        val person2: Person,
+        val parent1: Person,
+        val parent2: Person,
         val children: MutableSet<Family> = mutableSetOf()
 ) {
     fun child(
@@ -45,8 +45,7 @@ fun family(
 
 data class Family(
         val self: FamilyMember,
-        val partners: MutableList<FamilyMember> = mutableListOf(),
-        val children: MutableSet<Family> = mutableSetOf()
+        val partnerships: MutableList<Partnership> = mutableListOf()
 ) {
     fun partner(
             firstName: String,
@@ -59,20 +58,25 @@ data class Family(
 
         val partnership = Partnership(self, partner)
         partnership.block()
-        partners += partner
-        children += partnership.children
+        partnerships += partnership
 
         return partnership
     }
 }
 
-sealed class Person
+sealed class Person {
+    abstract val name: String
+}
 
-object Unidentified : Person()
+object Unidentified : Person() {
+    override val name: String = "Unidentified"
+}
 
 data class FamilyMember(
         val firstName: String,
         val lastName: String,
         val birthYear: Int? = null,
         val alias: String? = null
-) : Person()
+) : Person() {
+    override val name: String = "$firstName $lastName"
+}
