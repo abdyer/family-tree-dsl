@@ -2,6 +2,7 @@ import DarkFamilies.dopplerFamily
 import DarkFamilies.kahnwaldFamily
 import DarkFamilies.nielsenFamily
 import DarkFamilies.obendorfFamily
+import DarkFamilies.tannhausFamily
 import DarkFamilies.tiedemannFamily
 
 fun main(args: Array<String>) {
@@ -10,20 +11,23 @@ fun main(args: Array<String>) {
     println(dopplerFamily)
     println(kahnwaldFamily)
     println(obendorfFamily)
+    println(tannhausFamily)
     println()
 
     // Where did time travel occur?
     println("Time Travelers:")
-    val timeTravelers = timeTravelers(nielsenFamily) + timeTravelers(tiedemannFamily) + timeTravelers(dopplerFamily) +
-            timeTravelers(kahnwaldFamily) + timeTravelers(obendorfFamily)
-    timeTravelers.forEach(::println)
+    timeTravelers(nielsenFamily, tiedemannFamily, dopplerFamily, kahnwaldFamily, obendorfFamily, tannhausFamily)
+            .forEach(::println)
 
     // Who had children in multiple timelines?
 
-    // Who is their own (great)grandparent?
+    // Who is their own great/grand/parent?
 }
 
-private fun timeTravelers(family: Family): Set<String> = family.partnerships.flatMap(::timeTravelers).toSet()
+private fun timeTravelers(vararg families: Family): Set<String> =
+        families.flatMap { family ->
+            family.partnerships.flatMap(::timeTravelers)
+        }.toSet()
 
 private fun timeTravelers(partnership: Partnership): Set<String> {
     val timeTravelers = mutableSetOf<String>()

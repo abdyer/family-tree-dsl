@@ -1,13 +1,3 @@
-fun partnership(
-        person1: Person,
-        person2: Person,
-        block: Partnership.() -> Unit = {}
-): Partnership {
-    val partnership = Partnership(person1, person2)
-    partnership.block()
-    return partnership
-}
-
 data class Partnership(
         val parent1: Person,
         val parent2: Person,
@@ -33,7 +23,7 @@ data class Partnership(
 fun family(
         firstName: String,
         lastName: String,
-        birthYear: Int,
+        birthYear: Int? = null,
         block: Family.() -> Unit = {}
 ): Family {
     val family = Family(
@@ -55,8 +45,14 @@ data class Family(
             block: Partnership.() -> Unit = {}
     ): Partnership {
         val partner = FamilyMember(firstName, lastName, birthYear, alias)
+        return partner(partner, block)
+    }
 
-        val partnership = Partnership(self, partner)
+    fun partner(
+            person: Person,
+            block: Partnership.() -> Unit = {}
+    ): Partnership {
+        val partnership = Partnership(self, person)
         partnership.block()
         partnerships += partnership
 
