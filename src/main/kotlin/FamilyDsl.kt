@@ -1,3 +1,7 @@
+@DslMarker
+annotation class PartnershipScopeMarker
+
+@PartnershipScopeMarker
 data class Partnership(
         val parent1: Person,
         val parent2: Person,
@@ -33,6 +37,10 @@ fun family(
     return family
 }
 
+@DslMarker
+annotation class FamilyScopeMarker
+
+@FamilyScopeMarker
 data class Family(
         val self: FamilyMember,
         val partnerships: MutableList<Partnership> = mutableListOf()
