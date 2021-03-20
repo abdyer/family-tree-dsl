@@ -6,6 +6,9 @@ import DarkFamilies.tannhausFamily
 import DarkFamilies.tiedemannFamily
 
 fun main(args: Array<String>) {
+    println(simpsonFamily)
+    println()
+
     println(nielsenFamily)
     println(tiedemannFamily)
     println(dopplerFamily)
