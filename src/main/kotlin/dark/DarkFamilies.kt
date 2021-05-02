@@ -1,3 +1,8 @@
+package dark
+
+import Unidentified
+import family
+
 // Source: https://dark.netflix.io
 object DarkFamilies {
 
@@ -98,4 +103,7 @@ object DarkFamilies {
             }
         }
     }
+
+    val allFamilies =
+        listOf(nielsenFamily, tiedemannFamily, dopplerFamily, kahnwaldFamily, obendorfFamily, tannhausFamily)
 }
